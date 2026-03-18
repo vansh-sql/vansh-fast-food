@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VANSH FAST FOOD | Ultra-Modern</title>
+    <!-- Custom Google Fonts import kar rahe hain for premium typograhy (letters ka style) -->
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;700;900&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+    
+    <!-- FontAwesome icons use kar rahe hain social media logos (side menu) ke liye -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Swiper CSS is library ko use kar rahe hain 3D Cards ka slider (Coverflow) banane ke liye -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+    
+    <!-- Apni khud ki Custom CSS file link ki hai yahan par -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- Ye starting ka Loading Page (Splash Screen) hai jo '0 se 100%' tak load hota hai -->
+    <div id="loader">
+        <div class="loader-content">
+            <h1 class="loader-text">VANSH</h1>
+            <div class="loader-progress">0%</div>
+        </div>
+    </div>
+
+    <!-- Right Side wale Social Icons - Jo scroll karte waqt right mein fixed rehte hain -->
+    <aside class="social-sidebar">
+        <ul>
+            <!-- WhatsApp, Insta divgera yaha par set hain unke unique rang (color var) ke saath -->
+            <li style="--clr: #25D366;"><a href="#" class="hover-link"><i class="fab fa-whatsapp"></i><span class="tooltip">WhatsApp</span></a></li>
+            <li style="--clr: #E1306C;"><a href="#" class="hover-link"><i class="fab fa-instagram"></i><span class="tooltip">Instagram</span></a></li>
+            <li style="--clr: #1877F2;"><a href="#" class="hover-link"><i class="fab fa-facebook-f"></i><span class="tooltip">Facebook</span></a></li>
+            <li style="--clr: #0A66C2;"><a href="#" class="hover-link"><i class="fab fa-linkedin-in"></i><span class="tooltip">LinkedIn</span></a></li>
+        </ul>
+    </aside>
+
+    <!-- Jab koi "MENU" pe click karega, tab ye Pura Screen cover karne wala Dark Menu khulega -->
+    <div class="menu-overlay">
+        <div class="menu-overlay-bg"></div>
+        <!-- Menu ko close ('X' dabane wala) button -->
+        <div class="menu-close hover-link">
+            <i class="fas fa-times"></i>
+        </div>
+        <!-- Andar ke navigation links -->
+        <nav class="full-nav">
+            <ul>
+                <li><a href="#home" class="menu-link hover-link">HOME</a></li>
+                <li><a href="#vibe" class="menu-link hover-link">THE VIBE</a></li>
+                <li><a href="#menu" class="menu-link hover-link">FULL MENU</a></li>
+                <li><a href="#footer" class="menu-link hover-link">JOIN US</a></li>
+            </ul>
+        </nav>
+        <div class="menu-contact">
+            <p>CALL US ANYTIME</p>
+            <h3>8381975388</h3>
+        </div>
+    </div>
+
+    <!-- Background colour fade effect ke liye ek dark base, jo scroll karte vakt color change karegi -->
+    <div class="scroll-bg"></div>
+    <!-- Grain Noise - Ek halka sa old TV/Camera type 'static' (daane-daane) effect deta hai premium feel ke liye -->
+    <div class="grain-overlay"></div>
+
+    <!-- Upari hissa (Navbar) jaha Logo (VANSH) aur Hamburger Menu rakha hai -->
+    <header class="navbar">
+        <div class="logo">
+            <h1 data-hover="VANSH">VANSH</h1>
+        </div>
+        <div class="menu-toggle hover-link">
+            <!-- Hamburger Lines jo 2 dande jaise dikhte hain -->
+            <div class="hamburger">
+                <span></span>
+                <span></span>
+            </div>
+            <p>MENU</p>
+        </div>
+    </header>
+
+    <!-- Ye Global container un cheezon ka hai jo background mein 'gir (fall)' rahi hain (like Noodles, Momos) -->
+    <div class="falling-container">
+        <!-- Floating effects generated in JS -->
+        <img src="assets/images/spicy_noodles_1773804509830.png" class="fall-item noodles-fall" alt="Noodles">
+        <img src="assets/images/neon_momos_1773804531379.png" class="fall-item momos-fall" alt="Momos">
+        <img src="assets/images/neon_roll_1773804548899.png" class="fall-item roll-fall" alt="Roll">
+    </div>
+
+    <!-- MAIN WRAPPER START - Iske andar sabkuch aayega taki Lenis (smooth scroll library) barabar work kare -->
+    <main id="smooth-wrapper">
+
+        <!-- Pehla Hisa (Hero Section) - Jo load hone par sabse pehle dikhta hai -->
+        <section id="home" class="hero panel">
+            <!-- Text Part (Intro text) -->
+            <div class="hero-content">
+                <div class="reveal-text-mask">
+                    <h1 class="metallic-text split-text">THE STREET</h1>
+                </div>
+                <!-- Outline text (Sirf border wala text line) -->
+                <div class="reveal-text-mask">
+                    <h1 class="metallic-text split-text outline-only">REINVENTED.</h1>
+                </div>
+                <p class="subtitle fade-up">Vansh Fast Food. Cyber-Taste activated.</p>
+                <!-- Scroll Indicator - User ko niche scroll karne ki line animation detail deta hai -->
+                <div class="scroll-indicator fade-up">
+                    <span>SCROLL</span>
+                    <div class="line"></div>
+                </div>
+            </div>
+            
+            <!-- Hero Burger Image, Jo badhe size mein hoti hai -->
+            <div class="hero-burger-wrapper">
+                <img src="assets/images/floating_burger_1773804486432.png" alt="Burger" class="hero-burger">
+            </div>
+        </section>
+
+        <!-- Marquee Ticker - Pura din ghoomne wala (left to right slide) text patti -->
+        <div class="marquee-section">
+            <div class="marquee-inner">
+                <div class="marquee-content">
+                    NO COMPROMISE ON TASTE <span>•</span> 100% SPICY <span>•</span> CYBER STREET <span>•</span> NO COMPROMISE ON TASTE <span>•</span> 100% SPICY <span>•</span> CYBER STREET <span>•</span>
+                </div>
+                <div class="marquee-content" aria-hidden="true">
+                    NO COMPROMISE ON TASTE <span>•</span> 100% SPICY <span>•</span> CYBER STREET <span>•</span> NO COMPROMISE ON TASTE <span>•</span> 100% SPICY <span>•</span> CYBER STREET <span>•</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Dusra Hisa (Vibe) - Bade Massive Alphabet Texts opposite ghumne wale section -->
+        <section id="vibe" class="vibe-section panel">
+            <div class="vibe-text-container">
+                <h2 class="massive-text outline-text drift-left">PURE</h2>
+                <h2 class="massive-text filled-text pulse">FLAVOR</h2>
+                <h2 class="massive-text outline-text drift-right">UNLEASHED</h2>
+            </div>
+        </section>
+
+        <!-- Teesra Hisa (Menu Slider) - Yahan par Swiper JS se humey drag aur swipe karne milta hai -->
+        <section id="menu" class="menu-section panel">
+            <div class="menu-header">
+                <h2 class="section-title">THE <span>MENU</span></h2>
+                <p>Drag to explore the heat.</p>
+            </div>
+
+            <div class="swiper mySwiper">
+                <div class="swiper-wrapper">
+                    <!-- Item 1 -->
+                    <div class="swiper-slide glass-card hover-link">
+                        <img src="assets/images/neon_momos_1773804531379.png" alt="Neon Momos" class="flat-food">
+                        <div class="card-info">
+                            <h3>Cyber Momos</h3>
+                            <button class="neon-btn-small hover-link">Order Now</button>
+                        </div>
+                    </div>
+                    <!-- Item 2 -->
+                    <div class="swiper-slide glass-card hover-link">
+                        <img src="assets/images/neon_roll_1773804548899.png" alt="Neon Roll" class="flat-food">
+                        <div class="card-info">
+                            <h3>Hyper Roll</h3>
+                            <button class="neon-btn-small hover-link">Order Now</button>
+                        </div>
+                    </div>
+                    <!-- Item 3 -->
+                    <div class="swiper-slide glass-card hover-link">
+                        <img src="assets/images/floating_burger_1773804486432.png" alt="Burger" class="flat-food">
+                        <div class="card-info">
+                            <h3>Mech Burger</h3>
+                            <button class="neon-btn-small hover-link">Order Now</button>
+                        </div>
+                    </div>
+                    <!-- Item 4 -->
+                    <div class="swiper-slide glass-card hover-link">
+                        <img src="assets/images/spicy_noodles_1773804509830.png" alt="Noodles" class="flat-food">
+                        <div class="card-info">
+                            <h3>Nuclear Noodles</h3>
+                            <button class="neon-btn-small hover-link">Order Now</button>
+                        </div>
+                    </div>
+                    <!-- Item 5 (NEW) -->
+                    <div class="swiper-slide glass-card hover-link">
+                        <img src="assets/images/crispy_fries_1773806519616.png" alt="French Fries" class="flat-food">
+                        <div class="card-info">
+                            <h3>Neon Fries</h3>
+                            <button class="neon-btn-small hover-link">Order Now</button>
+                        </div>
+                    </div>
+                    <!-- Item 6 (NEW) -->
+                    <div class="swiper-slide glass-card hover-link">
+                        <img src="assets/images/cyber_hotdog_1773806536783.png" alt="Hot Dog" class="flat-food">
+                        <div class="card-info">
+                            <h3>Plasma Dog</h3>
+                            <button class="neon-btn-small hover-link">Order Now</button>
+                        </div>
+                    </div>
+                    <!-- Item 7 (NEW) -->
+                    <div class="swiper-slide glass-card hover-link">
+                        <img src="assets/images/floating_burger_1773804486432.png" alt="Burger Combo" class="flat-food">
+                        <div class="card-info">
+                            <h3>Double Hack combo</h3>
+                            <button class="neon-btn-small hover-link">Order Now</button>
+                        </div>
+                    </div>
+                    <!-- Item 8 (NEW) -->
+                    <div class="swiper-slide glass-card hover-link">
+                        <img src="assets/images/neon_momos_1773804531379.png" alt="Dim Sum Plate" class="flat-food">
+                        <div class="card-info">
+                            <h3>Spicy Dim Sums</h3>
+                            <button class="neon-btn-small hover-link">Order Now</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Aakhiri Hisa (Footer Form) - Customer details fill karne ki jagah (Login Page type) -->
+        <footer id="footer" class="footer panel">
+            <div class="footer-grid">
+                
+                <!-- Left Hisa jisse text cover ho -->
+                <div class="footer-text-area">
+                    <h1 class="metallic-text footer-title">JOIN THE<br>STREET</h1>
+                    <p>Enter the underworld of flavor. Order now and skip the massive lines.</p>
+                    <a href="#" class="huge-contact hover-link">8381975388</a>
+                </div>
+
+                <!-- Right Hisa - Neon Glass Form jisme WhatsApp connection laga hua hai -->
+                <div class="footer-form-area tilt-card">
+                    <div class="glow-box">
+                        <h2>QUICK LOGIN / ORDER</h2>
+                        <!-- id="contactForm" di hai takki aasaani sse hum Javascript block likh sake iska isemal kar ke -->
+                        <form id="contactForm">
+                            <!-- Name daalne wala khana -->
+                            <div class="input-group hover-link">
+                                <input type="text" id="name" required autocomplete="off">
+                                <label for="name">Your Name</label>
+                                <div class="input-border"></div>
+                            </div>
+                            
+                            <!-- Phone aorne wala khana -->
+                            <div class="input-group hover-link">
+                                <input type="text" id="phone" required autocomplete="off">
+                                <label for="phone">Phone Number</label>
+                                <div class="input-border"></div>
+                            </div>
+
+                            <!-- "MAGNETIC" Class Remove kardi hai jisse button hile na -->
+                            <!-- Form bhejne ka Button (Direct WhatsApp khulne wala) -->
+                            <button type="submit" class="cyber-submit-btn hover-link">
+                                ENTER THE GAME
+                                <i class="fas fa-arrow-right"></i>
+                            </button>
+                        </form>
+                    </div>
+                </div>
+
+            </div>
+        </footer>
+
+    </main>
+
+    <!-- JS Libraries (Animations ke tools) -->
+    <!-- Lenis: Ekdum buttery makhan jaise mouse-wheel scroll smooth karne ke liye -->
+    <script src="https://cdn.jsdelivr.net/gh/studio-freight/lenis@1.0.29/bundled/lenis.min.js"></script>
+    
+    <!-- GSAP: Scroll pe animated changes (text drift, background color timeline, fall items scale) chalane ke liye -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+    
+    <!-- Vanilla Tilt: Cards aur Forms ko 3D 15 degres tilt effect me jhukane ke liye -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vanilla-tilt/1.8.0/vanilla-tilt.min.js"></script>
+    <!-- Swiper: Coverflow Cards ko ek swipable slide setup banane ke liye -->
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+    
+    <!-- Hamara Custom aur main animation logic Code Yahan link kiya gaya hai -->
+    <script src="script.js"></script>
+</body>
+</html>

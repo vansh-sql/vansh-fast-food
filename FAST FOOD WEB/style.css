@@ -1,0 +1,371 @@
+/* Global Variables: Ek jagah rang store karte hain takki pure site mei ek hi variable name (jaise --neon-orange) use kar sakein. Aage agar orange badalna hai toh sirf yahi ek jagah change karni hoti hai. */
+:root {
+    --bg-dark: #050505;
+    --text-main: #ffffff;
+    --neon-orange: #FF8C00;
+    --neon-orange-glow: rgba(255, 140, 0, 0.4);
+    --charcoal: #111111;
+    --glass-bg: rgba(255, 255, 255, 0.02);
+    --glass-border: rgba(255, 255, 255, 0.05);
+}
+
+/* Har elements ke liye default styling cancel ('reset') taaki saare browsers me ek jaisa styling lag sake. */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Inter', sans-serif;
+    /* User request par 'cursor:none' hata diya takki normal mouse dikhe.*/
+}
+
+/* Body: Website background color ko transparent lagaya kyuki hum ek <div class="scroll-bg"> ko pehle set karenge. */
+body {
+    background-color: transparent;
+    color: var(--text-main);
+    overflow-x: hidden; /* Sidemai scroll ki white jagah block ho isliye */
+}
+
+/* ==============================================================
+   LENIS SMOOTH SCROLL CSS (Scroll makhan kaise chale)
+   ============================================================== */
+/* Custom Smooth scrolling (Lenis plugin library) ko apply karne wali jaruri default settings. */
+html.lenis { height: auto; }
+.lenis.lenis-smooth { scroll-behavior: auto; }
+.lenis.lenis-smooth [data-lenis-prevent] { overscroll-behavior: contain; }
+.lenis.lenis-stopped { overflow: hidden; }
+
+/* ==============================================================
+   SPLASH SCREEN PRE-LOADER (Website start hote hi wali window)
+   ============================================================== */
+/* Black box jo sabse pehle upar se aati hai ussay style kar rahe hai. */
+#loader {
+    position: fixed; top: 0; left: 0;
+    width: 100vw; height: 100vh;
+    background-color: #000; z-index: 99999;
+    display: flex; justify-content: center; align-items: center;
+}
+/* Text (0 - 100%) center me rakhne vaaste. */
+.loader-content { text-align: center; overflow: hidden; }
+/* VANSH likha hua initial hollow outline stroke text hai. */
+.loader-text {
+    font-family: 'Outfit', sans-serif; font-size: 6vw; font-weight: 900;
+    color: transparent; -webkit-text-stroke: 2px #333; position: relative; letter-spacing: 5px;
+}
+/* Yeh fill-up (orange bharna shuru hotaa h) left se right ki taraf iska style. */
+.loader-text::before {
+    content: "VANSH"; position: absolute; left: 0; top: 0; width: 0%; height: 100%;
+    color: var(--neon-orange); -webkit-text-stroke: 0px transparent; overflow: hidden;
+    text-shadow: 0 0 20px var(--neon-orange-glow); animation: loadingText 2.5s ease-in-out forwards;
+}
+/* Animation Logic jo width badha rai hai fill karnay key leya. */
+@keyframes loadingText { 0% { width: 0%; } 100% { width: 100%; } }
+/* 0% wale counter area. */
+.loader-progress { margin-top: 20px; font-size: 2rem; font-family: 'Outfit', sans-serif; color: var(--neon-orange); }
+
+/* ==============================================================
+   BACKGROUND & GRAIN EFFECTS (Cinematic Look)
+   ============================================================== */
+/* Background base patti jise colors scroll karnay par fade keya jayega JS k through.*/
+.scroll-bg {
+    position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
+    background-color: var(--bg-dark); z-index: -2; transition: background-color 0.8s ease;
+}
+/* Ek static noise (purane TV jaisi dhoondli line) jisse image quality rich feel deiti h. */
+.grain-overlay {
+    position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
+    pointer-events: none; z-index: -1; opacity: 0.05;
+    background: url('https://upload.wikimedia.org/wikipedia/commons/7/76/1k_Dissolve_Noise_Texture.png');
+}
+
+/* ==============================================================
+   SOCIAL SIDEBAR (Right corner wale icons WhatsApp, FB...)
+   ============================================================== */
+/* Sidebar ko right me chipka ke rakha gaya h (fixed). */
+.social-sidebar {
+    position: fixed;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%); /* Top se aadha neeche laya taaki center par rhe. */
+    z-index: 500;
+    background: rgba(0, 0, 0, 0.4);
+    backdrop-filter: blur(10px); /* Kaanch wali transparency de raha h. */
+    border: 1px solid var(--glass-border);
+    border-right: none;
+    border-top-left-radius: 15px;
+    border-bottom-left-radius: 15px;
+    padding: 15px 5px;
+    display: flex;
+    flex-direction: column;
+}
+.social-sidebar ul { list-style: none; display: flex; flex-direction: column; gap: 20px; }
+.social-sidebar li { position: relative; display: flex; align-items: center; justify-content: center; }
+
+/* Har individual logo ki default circle size. */
+.social-sidebar a {
+    color: #fff; font-size: 1.5rem; text-decoration: none; width: 45px; height: 45px;
+    display: flex; justify-content: center; align-items: center;
+    border-radius: 50%; transition: 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+    position: relative; z-index: 2;
+}
+
+/* Jab mouse logo pe jayega, left ki tarf nikal k apne color hoker glow karega. */
+.social-sidebar li:hover a {
+    background: var(--clr); color: #fff;
+    box-shadow: 0 0 20px var(--clr), 0 0 40px var(--clr);
+    transform: translateX(-10px) scale(1.1);
+}
+
+/* Chhote likhe hue texts (WhatsApp, Fb) wale dabbe. Default unhide rehte h opacity:0 ke saTh */
+.tooltip {
+    position: absolute; right: 60px; background: var(--clr); color: #fff;
+    padding: 5px 12px; border-radius: 5px; font-size: 0.8rem; font-weight: bold;
+    opacity: 0; pointer-events: none; transition: 0.3s; transform: translateX(20px); white-space: nowrap;
+}
+/* Mouse uthane (hover) par tooltip text box bahar left me fade hokar dkhne lage. */
+.social-sidebar li:hover .tooltip { opacity: 1; transform: translateX(0); }
+
+/* ==============================================================
+   HEADERN AND FULL SCREEN MENU (Top Wali Navbar + Drawer)
+   ============================================================== */
+/* Navbar ki glass design transparent background. */
+.navbar {
+    position: fixed; top: 0; width: 100%; padding: 20px 50px;
+    display: flex; justify-content: space-between; align-items: center;
+    z-index: 100; background: rgba(0,0,0,0.2); backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px); border-bottom: 1px solid var(--glass-border);
+}
+
+/* VANSH Logo jo upar chipak kr chalega uss pe mouse ghumane k baad slide orange color ki lines hogi. */
+.logo h1 { font-family: 'Outfit', sans-serif; font-weight: 900; font-size: 2.2rem; position: relative; overflow: hidden; }
+.logo h1::after { content: attr(data-hover); position: absolute; left: 0; top: 100%; color: var(--neon-orange); transition: 0.3s ease; }
+.logo h1:hover { color: transparent; }
+.logo h1:hover::after { top: 0; }
+
+/* Hamburger Button ('MENU' dikhane vali setting) taaki click se popup khulay. */
+.menu-toggle {
+    display: flex; align-items: center; gap: 15px; background: transparent; 
+    padding: 10px 20px; border: 1px solid var(--glass-border); border-radius: 30px; 
+    transition: 0.3s;
+}
+.menu-toggle p { font-weight: 700; font-size: 1rem; letter-spacing: 2px; }
+.hamburger { display: flex; flex-direction: column; gap: 6px; width: 25px; }
+.hamburger span { width: 100%; height: 2px; background: #fff; transition: 0.3s; }
+.menu-toggle:hover { border-color: var(--neon-orange); box-shadow: 0 0 15px var(--neon-orange-glow); }
+.menu-toggle:hover .hamburger span { background: var(--neon-orange); }
+
+/* Full screen menu Overlay. Usko initially screen k bahar (-100% top me) chupya gya hai. */
+.menu-overlay {
+    position: fixed; top: -100%; left: 0; width: 100vw; height: 100vh;
+    z-index: 99999; display: flex; flex-direction: column; justify-content: center;
+    align-items: center; transition: top 0.6s cubic-bezier(0.77, 0, 0.175, 1);
+    background: transparent;
+}
+/* JS jab class="active" lga degi tb (-100% see) ye 0px bottom slide ho aayega top-bar screen me.*/
+.menu-overlay.active { top: 0; }
+/* Overlay ke piche ka dhua (smoke) blur background h.*/
+.menu-overlay-bg {
+    position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+    background: rgba(10, 10, 10, 0.95); backdrop-filter: blur(20px); z-index: -1;
+}
+/* Menu Close ka 'X' sign cut karne ke lye.*/
+.menu-close { position: absolute; top: 40px; right: 50px; font-size: 2.5rem; color: #fff; transition: 0.3s; }
+.menu-close:hover { color: var(--neon-orange); transform: rotate(90deg) scale(1.1); }
+
+/* In-menu text navigation ke button styling. */
+.full-nav ul { list-style: none; text-align: center; }
+.full-nav li { margin: 25px 0; overflow: hidden; }
+.full-nav a {
+    text-decoration: none; font-family: 'Outfit', sans-serif;
+    font-size: 6vw; font-weight: 900; color: transparent;
+    -webkit-text-stroke: 2px #555; text-transform: uppercase;
+    transition: 0.4s; position: relative; display: inline-block;
+    opacity: 0; transform: translateY(50px);
+}
+.full-nav a:hover {
+    color: var(--neon-orange); -webkit-text-stroke: 0px transparent;
+    text-shadow: 0 0 30px var(--neon-orange-glow); transform: scale(1.05);
+}
+/* Jab active hoga tab link upar ayenge delay krke styling yha ki gai he.*/
+.menu-overlay.active .full-nav a { opacity: 1; transform: translateY(0); transition-delay: 0.3s; }
+
+/* Call/Phone number text menu ke andrr valay design. */
+.menu-contact {
+    position: absolute; bottom: 50px; text-align: center;
+    opacity: 0; transition: 0.5s; transition-delay: 0.6s;
+}
+.menu-overlay.active .menu-contact { opacity: 1; }
+.menu-contact p { color: #888; font-size: 1rem; letter-spacing: 2px; }
+.menu-contact h3 { color: var(--neon-orange); font-size: 2rem; font-weight: 700; margin-top: 5px; }
+
+/* ==============================================================
+   GLOBLE LAYOUT CONTAINERS & ANIMATED BACKGROUND FOOD BOXES
+   ============================================================== */
+/* Har bada page/section ek Panel hai. 100vh matlab puri device screen fill karna. */
+.panel { min-height: 100vh; width: 100vw; position: relative; flex-direction: column; display: flex; justify-content: center; }
+/* Jo bhi Momos/Noodles girengey is global area ki fixed window mein girte hn. */
+.falling-container { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; pointer-events: none; z-index: 5; perspective: 1200px; }
+.fall-item { position: absolute; will-change: transform; }
+/* un items k default chupey hue jagah setting. Inhe JS animation badlega scroll k bad.*/
+.noodles-fall { width: 30vw; top: -50%; left: -10%; filter: blur(5px) drop-shadow(0 20px 30px rgba(0,0,0,0.8)); opacity: 0.7; }
+.momos-fall { width: 25vw; top: -60%; right: 10%; z-index: 7; filter: drop-shadow(0 30px 40px rgba(0,0,0,0.9)); }
+.roll-fall { width: 35vw; bottom: -80%; left: 30%; z-index: 6; }
+
+/* ==============================================================
+   1. HERO SECTION (Front Landing UI)
+   ============================================================== */
+.hero { align-items: center; overflow: hidden; }
+.hero-content { position: absolute; top: 30%; text-align: center; z-index: 4; }
+.reveal-text-mask { overflow: hidden; line-height: 1.1; }
+
+/* Metallic looking solid text layout gradient shadow. */
+.metallic-text {
+    font-family: 'Outfit', sans-serif; font-size: 8vw; font-weight: 900; text-transform: uppercase;
+    background: linear-gradient(180deg, #fff 0%, #a3a3a3 100%);
+    background-clip: padding-box; /* ADDED LINT FIX TO REMOVE BUGS*/
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent; filter: drop-shadow(0px 15px 30px rgba(0,0,0,0.9));
+}
+/* Sirf Outline wali styling ("REINVENTED" words p apply ki gye h) */
+.outline-only { background: none; -webkit-text-fill-color: transparent; -webkit-text-stroke: 2px #fff; filter: none; }
+
+.subtitle { margin-top: 20px; font-size: 1.2rem; color: #888; text-transform: uppercase; letter-spacing: 4px; }
+
+/* Niche aane ko bolna ("SCROLL") animated vertical line */
+.scroll-indicator {
+    margin-top: 60px; display: flex; flex-direction: column; align-items: center; gap: 15px; color: var(--neon-orange); font-size: 0.8rem; letter-spacing: 3px;
+}
+.scroll-indicator .line {
+    width: 1px; height: 70px; background: linear-gradient(to bottom, var(--neon-orange) 50%, rgba(255,255,255,0.1) 50%);
+    background-size: 100% 200%; animation: scrollLine 1.5s linear infinite;
+}
+@keyframes scrollLine { 0% { background-position: 100% 0; } 100% { background-position: 100% -100%; } }
+
+/* Main bada wala burger Box image ka. */
+.hero-burger-wrapper { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -20%); width: 65vw; max-width: 900px; z-index: 6; pointer-events: none; }
+.hero-burger { width: 100%; filter: drop-shadow(0 50px 80px rgba(0,0,0,1)); }
+
+/* ==============================================================
+   MARQUEE BANNERS (News channel ki tarah chalne vala text patti)
+   ============================================================== */
+/* Us bande jiska color neon orange he and usko seedha-chalta scroll kara rahe hn */
+.marquee-section {
+    width: 100%; padding: 30px 0; background: var(--neon-orange); color: #000; font-family: 'Outfit', sans-serif; font-weight: 900; font-size: 2.5rem; overflow: hidden; display: flex; z-index: 10; position: relative; border-top: 2px solid #fff; border-bottom: 2px solid #fff; transform: rotate(-2deg) scale(1.05); margin: 50px 0;
+}
+.marquee-inner { display: flex; white-space: nowrap; animation: marqueeScroll 20s linear infinite; }
+.marquee-content { display: flex; gap: 40px; padding-right: 40px; }
+.marquee-content span { color: #fff; }
+/* -50 lagatar badal rha h jisse illusion aayi k end h hi ni raha. */
+@keyframes marqueeScroll { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
+
+/* ==============================================================
+   VIBE SECTION (Big drifting word texts block)
+   ============================================================== */
+.vibe-section { align-items: center; justify-content: center; overflow: hidden; }
+.vibe-text-container { display: flex; flex-direction: column; align-items: center; line-height: 0.85; }
+.massive-text { font-family: 'Outfit', sans-serif; font-size: 14vw; font-weight: 900; text-transform: uppercase; letter-spacing: -3px; white-space: nowrap; }
+.outline-text { color: transparent; -webkit-text-stroke: 1px rgba(255, 255, 255, 0.15); }
+.filled-text { color: var(--text-main); text-shadow: 0 0 40px rgba(255,255,255,0.2); }
+
+/* ==============================================================
+   MENU SECTIONS (Cards Swiper 3D coverflow Box Slider)
+   ============================================================== */
+.menu-section { align-items: center; padding-top: 100px; z-index: 10; }
+.menu-header { text-align: center; margin-bottom: 50px; }
+.section-title { font-family: 'Outfit', sans-serif; font-size: 6vw; color: #fff; line-height: 1; }
+.section-title span { color: transparent; -webkit-text-stroke: 2px var(--neon-orange); }
+
+/* Swiper styling plugin box wrapper.*/
+.swiper { width: 100%; padding: 50px 0; }
+.swiper-slide {
+    width: 320px; height: 420px; border-radius: 15px; display: flex; flex-direction: column; justify-content: flex-end; align-items: center; padding: 20px;
+    background: var(--glass-bg); border: 1px solid var(--glass-border); backdrop-filter: blur(25px); -webkit-backdrop-filter: blur(25px); box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+}
+/* Dishes ki photuo (image) set karne yaha flat design rakha hai */
+.swiper-slide img { width: 100%; max-width: 250px; position: absolute; top: -10%; filter: drop-shadow(0 20px 30px rgba(0,0,0,0.9)); transition: 0.4s ease; pointer-events: none; }
+.swiper-slide:hover img { transform: translateY(-15px) scale(1.05); }
+.card-info { width: 100%; text-align: center; padding: 15px; border-top: 1px solid rgba(255,255,255,0.05); background: linear-gradient(to top, rgba(0,0,0,0.8), transparent); border-radius: 0 0 15px 15px; }
+.card-info h3 { font-family: 'Outfit', sans-serif; font-size: 2rem; color: #fff; margin-bottom: 20px; }
+/* Order Now wala Button */
+.neon-btn-small { padding: 12px 0; width: 100%; background: var(--neon-orange); border: none; color: #000; border-radius: 4px; font-weight: 800; text-transform: uppercase; font-size: 1rem; letter-spacing: 1px; transition: 0.3s; }
+/* Mouse Hover effect ismey lg lag rhi h.*/
+.neon-btn-small:hover { background: #fff; box-shadow: 0 0 20px #fff; }
+
+/* ==============================================================
+   FOOTER (Aakhiri wala Contact / Form Order form )
+   ============================================================== */
+/* Footer gradient. Niche andhera aur upar tk rang blur karta h.*/
+.footer {
+    min-height: 90vh; padding: 100px 5vw; display: flex; justify-content: center; align-items: center;
+    background: linear-gradient(to top, rgba(255, 140, 0, 0.08), transparent); z-index: 10;
+}
+/* Data grid jo text ko Left ar form right taraf 50-50 space divide keya. */
+.footer-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 50px; max-width: 1400px; width: 100%; align-items: center; }
+
+.footer-text-area { display: flex; flex-direction: column; justify-content: center; }
+.footer-title { font-size: 6vw; line-height: 0.9; margin-bottom: 20px; color: transparent; background: none; -webkit-text-stroke: 2px #fff; filter: none; }
+.footer-grid p { font-size: 1.2rem; color: #aaa; max-width: 400px; margin-bottom: 40px; line-height: 1.6; }
+
+/* Phone Number ki display badi rkhne wala.*/
+.huge-contact {
+    font-family: 'Outfit', sans-serif; font-size: 5vw; font-weight: 900;
+    color: var(--neon-orange); text-shadow: 0 0 20px var(--neon-orange-glow);
+    text-decoration: none; transition: 0.5s; line-height: 1; display: inline-block;
+}
+.huge-contact:hover { transform: scale(1.05); text-shadow: 0 0 40px var(--neon-orange); color: #fff; }
+
+/* ==============================================================
+   LOGIN / ORDER SUBMISSION FORM (Right Side)
+   ============================================================== */
+/* Blur Neon wala dabbe ka outer shell. */
+.glow-box {
+    background: rgba(20, 20, 20, 0.6); border: 1px solid rgba(255,140,0,0.3); padding: 50px 40px;
+    border-radius: 20px; backdrop-filter: blur(20px); box-shadow: 0 30px 60px rgba(0,0,0,0.8), inset 0 0 30px rgba(255, 140, 0, 0.05);
+}
+.glow-box h2 { font-family: 'Outfit', sans-serif; color: #fff; font-size: 2rem; margin-bottom: 40px; text-align: center; letter-spacing: 2px; }
+
+/* Form Field Groups "Name", "Number" boxes wali styling */
+.input-group { position: relative; margin-bottom: 35px; }
+.input-group input { width: 100%; padding: 10px 0; font-size: 1.2rem; color: #fff; background: transparent; border: none; outline: none; }
+
+/* In Labels ko (Jaise "Your Name" text) initially input ke upar baithate hai, Float up animation lagane ke liye */
+.input-group label { position: absolute; top: 10px; left: 0; font-size: 1.2rem; color: #888; transition: 0.3s ease; pointer-events: none; }
+/* Input ke niche vali halki line.*/
+.input-group .input-border { position: absolute; bottom: 0; left: 0; width: 100%; height: 2px; background: #333; transition: 0.3s; }
+
+/* FLOATING LABEL MAGIC: Jab Textbox ke andar click ho ya type karna chalu ho tbb Label text upar jump marega! */
+.input-group input:focus ~ label, .input-group input:valid ~ label { top: -20px; font-size: 0.9rem; color: var(--neon-orange); }
+/* Bottom line bhi orange glow kregi click ke baad */
+.input-group input:focus ~ .input-border, .input-group input:valid ~ .input-border { background: var(--neon-orange); box-shadow: 0 0 10px var(--neon-orange); }
+
+/* WHASTAPP BHEJNE WALA MAIN BUTTON: Jisko hover karne par teer(arrow) thoda aage khiskta hai */
+.cyber-submit-btn {
+    width: 100%; padding: 15px; background: transparent; border: 2px solid var(--neon-orange); color: var(--neon-orange);
+    font-family: 'Outfit', sans-serif; font-size: 1.3rem; font-weight: 800; letter-spacing: 2px;
+    display: flex; justify-content: center; align-items: center; gap: 15px; border-radius: 4px; margin-top: 10px; transition: 0.4s; position: relative;
+    /* Magnetic class ab hta di h , lekin hover kaam karega */
+}
+/* Hover ka logic. Click ne hone se pyle mouse laney par jo piche color bbher jata he Orange wo style. */
+.cyber-submit-btn:hover { background: var(--neon-orange); color: #000; box-shadow: 0 0 30px var(--neon-orange-glow); transform: translateY(-5px); }
+/* Teer ki design arrow aage jane k lay */
+.cyber-submit-btn i { transition: 0.3s; }
+.cyber-submit-btn:hover i { transform: translateX(10px); }
+
+/* ==============================================================
+   MOBILE VIEW (Phones ki screen ke liye special settings)
+   ============================================================== */
+@media (max-width: 900px) {
+    /* Dono Hissey phone me upar/niche (stack) ho jayegaye. */
+    .footer-grid { grid-template-columns: 1fr; text-align: center; }
+    .footer-title, .huge-contact { font-size: 10vw; }
+    /* Mobile me side bar ki design badal ker fixed chipkayi left me jada space the isliye. */
+    .social-sidebar { right: auto; left: 0; border-radius: 0; border-top-right-radius: 15px; border-bottom-right-radius: 15px; padding: 10px 2px; }
+    .social-sidebar a { width: 35px; height: 35px; font-size: 1.2rem; }
+    .tooltip { display: none; } /* Mobile me names chup jayegaye nahi to screen bharte */
+}
+
+@media (max-width: 768px) {
+    nav ul { display: none; } /* Desktop Nav chupakar sirf ham burger visible. */
+    .hero-burger-wrapper { width: 100vw; transform: translate(-50%, -10%); }
+    .swiper-slide { width: 80vw; } /* Phone me slider full-width hoga card. */
+    .marquee-section { font-size: 1.5rem; padding: 15px 0;}
+    .menu-close { top: 20px; right: 20px; font-size: 2rem; }
+}
