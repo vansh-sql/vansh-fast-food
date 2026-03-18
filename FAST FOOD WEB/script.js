@@ -113,30 +113,59 @@ document.addEventListener("DOMContentLoaded", () => {
         yPercent: 80, scale: 0.6, rotation: 45, opacity: 0
     });
 
-    // Jo random cheze asman se giyr rhe hy jse "noodles-fall" unki setting 
-    gsap.to(".noodles-fall", {
-        scrollTrigger: { trigger: "body", start: "top top", end: "bottom bottom", scrub: 2.5 },
-        top: "120%", left: "60%", rotation: 220, ease: "none" // Uper se le kr pta nhi niche bottom tak rotate kre ga
+    // matchMedia use kar ke phone aur computer ka alag hisab set karenge taaki phone lag na maare
+    let mm = gsap.matchMedia();
+
+    // Desktop aur Bade screen ki animations (Original Heavy Animations)
+    mm.add("(min-width: 769px)", () => {
+        // Jo random cheze asman se giyr rhe hy jse "noodles-fall" unki setting 
+        gsap.to(".noodles-fall", {
+            scrollTrigger: { trigger: "body", start: "top top", end: "bottom bottom", scrub: 2.5 },
+            top: "120%", left: "60%", rotation: 220, ease: "none" // Uper se le kr pta nhi niche bottom tak rotate kre ga
+        });
+
+        gsap.to(".momos-fall", {
+            scrollTrigger: { trigger: ".marquee-section", start: "top bottom", end: "bottom top", scrub: 1.5 },
+            top: "120%", right: "80%", rotation: -200, scale: 1.5, ease: "none"
+        });
+
+        gsap.to(".roll-fall", {
+            scrollTrigger: { trigger: ".vibe-section", start: "top bottom", end: "bottom top", scrub: 1 },
+            bottom: "80%", left: "5%", rotation: 90, scale: 1.2, ease: "none"
+        });
+
+        // Vibe Secxtion wale Drift Word (Jisme Right And Left bhaag ra hi shabd un ki timeline set ki h)
+        const vibeTextTl = gsap.timeline({
+            scrollTrigger: { trigger: ".vibe-section", start: "top bottom", end: "bottom top", scrub: 1 }
+        });
+        vibeTextTl.fromTo(".drift-left",  { x: "20%" }, { x: "-30%" }, 0) // Ye ek shabd ko left move kree raha h
+                  .fromTo(".drift-right", { x: "-20%" }, { x: "30%" }, 0) // Ye ulta right direction mein bhej rai h shabd 
+                  .to(".pulse", { scale: 1.1 }, 0); // "FLAVOR" bada huva aage ataaa
     });
 
-    gsap.to(".momos-fall", {
-        scrollTrigger: { trigger: ".marquee-section", start: "top bottom", end: "bottom top", scrub: 1.5 },
-        top: "120%", right: "80%", rotation: -200, scale: 1.5, ease: "none"
-    });
+    // Mobile ki halki animations (Light Performance Animations)
+    mm.add("(max-width: 768px)", () => {
+        // Mobile mein sirf halka rotate aur fall karenge taki screen width kharab (ulta phulta) na ho aur phone smooth chale
+        gsap.to(".noodles-fall", {
+            scrollTrigger: { trigger: "body", start: "top top", end: "bottom bottom", scrub: 1 },
+            top: "100%", rotation: 90, ease: "none"
+        });
+        gsap.to(".momos-fall", {
+            scrollTrigger: { trigger: ".marquee-section", start: "top bottom", end: "bottom top", scrub: 1 },
+            top: "100%", rotation: -90, scale: 1, ease: "none"
+        });
+        gsap.to(".roll-fall", {
+            scrollTrigger: { trigger: ".vibe-section", start: "top bottom", end: "bottom top", scrub: 1 },
+            bottom: "60%", left: "10%", rotation: 45, scale: 1, ease: "none"
+        });
 
-    gsap.to(".roll-fall", {
-        scrollTrigger: { trigger: ".vibe-section", start: "top bottom", end: "bottom top", scrub: 1 },
-        bottom: "80%", left: "5%", rotation: 90, scale: 1.2, ease: "none"
+        const vibeTextTl = gsap.timeline({
+            scrollTrigger: { trigger: ".vibe-section", start: "top center", end: "bottom center", scrub: 1 }
+        });
+        vibeTextTl.fromTo(".drift-left",  { x: "5%" }, { x: "-5%" }, 0)
+                  .fromTo(".drift-right", { x: "-5%" }, { x: "5%" }, 0)
+                  .to(".pulse", { scale: 1.05 }, 0);
     });
-
-    // Vibe Secxtion wale Drift Word (Jisme Right And Left bhaag ra hi shabd un ki timeline set ki h)
-    const vibeTextTl = gsap.timeline({
-        scrollTrigger: { trigger: ".vibe-section", start: "top bottom", end: "bottom top", scrub: 1 }
-    });
-
-    vibeTextTl.fromTo(".drift-left",  { x: "20%" }, { x: "-30%" }, 0) // Ye ek shabd ko left move kree raha h
-              .fromTo(".drift-right", { x: "-20%" }, { x: "30%" }, 0) // Ye ulta right direction mein bhej rai h shabd 
-              .to(".pulse", { scale: 1.1 }, 0); // "FLAVOR" bada huva aage ataaa
 
     // ==========================================
     // 5. CAZARD SWIPER (3D Coverflow) & VANILLA TILT
